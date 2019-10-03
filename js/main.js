@@ -16,12 +16,16 @@ function init() {
         } else if (i === 1) {
             for (var j = 0; j < 16; j++) {
                 var tileSpace = document.createElement("div");
-                tileSpace.setAttribute("class","col-3");
-                tileSpace.innerHTML = j;
-                tileSpace.setAttribute("id", "tile-" + j);
+                tileSpace.setAttribute("class","col-3 border text-center");
+                tileSpace.setAttribute("id", j);
+                console.log(tiles[j]);
+                tiles[j].populate(tileSpace);
+                tileSpace.addEventListener("click", movement);
                 row.appendChild(tileSpace);
             }
         }
         app.appendChild(row);
     }
 }
+
+init();

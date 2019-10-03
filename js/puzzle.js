@@ -1,66 +1,58 @@
 /* Global Variables */
-<<<<<<< HEAD
-let gridPos = [
-    [1,1,1,0],
-    [1,1,1,1],
-    [1,1,1,1],
-    [1,1,1,1]
-];
-
-/* Movement Functions */
-function xMovement () {
-
-}
+// let gridPos = [
+//     [1, 0, 0, 0],
+//     [0, 0, 0, 0],
+//     [0, 0, 0, 0],
+//     [0, 0, 0, 0]
+// ];
+let xPos = 0;
+let yPos = 0;
+let blank = 1;
 
 
-function Tile(idx, tileId, heightSize, widthSize, position, isFilled) {
+/* Tile Constructor */
+function Tile(idx, tileId, x, y, isBlank, currentPos) {
     this.idx = idx;
     this.tileId = tileId;
-=======
-// let gridPos = [1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1];
-
-function Tile(heightSize, widthSize, position, isFilled) {
->>>>>>> 98a1a0fcb43ba3b65084e1ed8474d964b72ca7e5
-    this.heightSize = heightSize;
-    this.widthSize = widthSize;
-    this.position = position;
-    this.isFilled = isFilled;
+    this.x = x;
+    this.y = y;
+    this.isBlank = isBlank;
+    this.currentPos = y * 4 + x;
+    let text = document.createElement("div");
+    text.innerHTML = idx;
+    this.content = text;
 }
 
-
-/* Sliding Tiles Constructor */
-<<<<<<< HEAD
-function SlidingTile(idx, tileId, heightSize, widthSize, position, isFilled, color) {
-    Tile.call(this,idx, tileId, heightSize, widthSize, position);
-=======
-function SlidingTile(heightSize, widthSize, position, isFilled, color) {
-    Tile.call(this, heightSize, widthSize, position);
->>>>>>> 98a1a0fcb43ba3b65084e1ed8474d964b72ca7e5
-    this.isFilled = true;
-    this.color = "rgb(102,102,153)";
+Tile.prototype.populate = function (col) {
+    col.appendChild(this.content);
 }
-SlidingTile.prototype = Object.create(Tile.prototype);
-Object.defineProperty(SlidingTile.prototype, 'constructor', {
-    Value: SlidingTile,
-    enumerable: false,
-    writeable: true
-});
 
-
-/* Empty Tile Constructor */
-<<<<<<< HEAD
-function EmptyTile(idx, tileId, heightSize, widthSize, position, isFilled) {
-    Tile.call(this, idx, tileId, heightSize, widthSize, position);
-=======
-function EmptyTile(heightSize, widthSize, position, isFilled) {
-    Tile.call(this, heightSize, widthSize, position);
->>>>>>> 98a1a0fcb43ba3b65084e1ed8474d964b72ca7e5
-    this.isFilled = false;
-
+/* Create Tiles Array */
+let tiles = [];
+for (i = 0; tiles.length < 16; i++) {
+    let tile = new Tile(
+        i,
+        i,
+        xPos,
+        yPos,
+        blank
+    );
+    if (xPos < 3) {
+        xPos++;
+    } else if (xPos == 3) {
+        xPos = 0;
+        yPos++;
+    }
+    if (blank == 1) {
+        blank--;
+    }
+    tiles.push(tile);
 }
-EmptyTile.prototype = Object.create(Tile.prototype);
-Object.defineProperty(EmptyTile.prototype, 'constructor', {
-    Value: EmptyTile,
-    enumerable: false,
-    writeable: true
-});
+
+function movement(e) {
+    xTemp = null;
+    yTemp = null;
+    console.log(e);
+    console.log(this);
+    
+}
