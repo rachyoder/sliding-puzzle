@@ -1,5 +1,7 @@
 var app = document.getElementById("app");
 
+
+// Board Setup
 function init() {
     app.setAttribute("class", "container");
     var row = document.createElement("div");
@@ -14,11 +16,11 @@ function init() {
             col.appendChild(head);
             row.appendChild(col);
         } else if (i === 1) {
+            // Setup all Boxes
             for (var j = 0; j < 16; j++) {
                 var tileSpace = document.createElement("div");
                 tileSpace.setAttribute("class","col-3 p-0 border text-center");
                 tileSpace.setAttribute("id", j);
-                //console.log(tiles[j]);
                 tiles[j].populate(tileSpace);
                 tileSpace.addEventListener("click", movement);
                 row.appendChild(tileSpace);

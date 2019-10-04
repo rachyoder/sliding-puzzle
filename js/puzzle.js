@@ -56,9 +56,14 @@ function movement(e) {
     let yTemp = null;
     let blankCurrentPos = null;
     let blankVerify = null;
-    let clickedId = e.path[1].id;
+    let clickedId = this.id;
+
+    //console.log({e});
+    console.log({clickedId});
+
     xTemp = tiles[clickedId].x;
     yTemp = tiles[clickedId].y;
+    console.log({xTemp, yTemp});
     for (let j = 0; j<tiles.length; j++) {
         if(tiles[j].isBlank == 1) {
             blankCurrentPos = tiles[j].tileId;
@@ -66,6 +71,7 @@ function movement(e) {
 
         }
     }
+    // Swapping tile postiion between clicked and blank
     tiles[clickedId].x = tiles[blankCurrentPos].x;
     tiles[clickedId].y = tiles[blankCurrentPos].y;
     tiles[clickedId].isBlank = 1;
@@ -77,7 +83,6 @@ function movement(e) {
     // y * 4 + x
     let tileOne = document.getElementById(clickedId);
     let tileTwo = document.getElementById(blankCurrentPos);
-    // console.log({tileOne, tileTwo});
     tileOne.innerHTML = tiles[tileOne.id].y * 4 + tiles[tileOne.id].x;
     tileTwo.innerHTML = tiles[tileTwo.id].y * 4 + tiles[tileTwo.id].x;
 }
