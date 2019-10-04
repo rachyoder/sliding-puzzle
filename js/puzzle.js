@@ -1,10 +1,4 @@
 /* Global Variables */
-// let gridPos = [
-//     [1, 0, 0, 0],
-//     [0, 0, 0, 0],
-//     [0, 0, 0, 0],
-//     [0, 0, 0, 0]
-// ];
 let xPos = 0;
 let yPos = 0;
 let blank = 1;
@@ -49,10 +43,41 @@ for (i = 0; tiles.length < 16; i++) {
     tiles.push(tile);
 }
 
-function movement(e) {
-    xTemp = null;
-    yTemp = null;
-    console.log(e);
-    console.log(this);
+/* Renders Board for movement */
+function renderBoard(gridId, blankPos) {
+    console.log({gridId});
+    console.log({blankPos});
     
+}
+
+/* Changes x and y position in Object */
+function movement(e) {
+    let xTemp = null;
+    let yTemp = null;
+    let blankCurrentPos = null;
+    let blankVerify = null;
+    let clickedId = e.path[1].id;
+    xTemp = tiles[clickedId].x;
+    yTemp = tiles[clickedId].y;
+    for (let j = 0; j<tiles.length; j++) {
+        if(tiles[j].isBlank == 1) {
+            blankCurrentPos = tiles[j].tileId;
+            blankVerify = tiles[j].isBlank;
+
+        }
+    }
+    tiles[clickedId].x = tiles[blankCurrentPos].x;
+    tiles[clickedId].y = tiles[blankCurrentPos].y;
+    tiles[clickedId].isBlank = 1;
+    tiles[blankCurrentPos].x = xTemp;
+    tiles[blankCurrentPos].y = yTemp;
+    tiles[blankCurrentPos].isBlank = 0;
+
+
+    // y * 4 + x
+    let tileOne = document.getElementById(clickedId);
+    let tileTwo = document.getElementById(blankCurrentPos);
+    // console.log({tileOne, tileTwo});
+    tileOne.innerHTML = tiles[tileOne.id].y * 4 + tiles[tileOne.id].x;
+    tileTwo.innerHTML = tiles[tileTwo.id].y * 4 + tiles[tileTwo.id].x;
 }

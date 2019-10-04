@@ -16,9 +16,9 @@ function init() {
         } else if (i === 1) {
             for (var j = 0; j < 16; j++) {
                 var tileSpace = document.createElement("div");
-                tileSpace.setAttribute("class","col-3 border text-center");
+                tileSpace.setAttribute("class","col-3 p-0 border text-center");
                 tileSpace.setAttribute("id", j);
-                console.log(tiles[j]);
+                //console.log(tiles[j]);
                 tiles[j].populate(tileSpace);
                 tileSpace.addEventListener("click", movement);
                 row.appendChild(tileSpace);
