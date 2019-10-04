@@ -45,9 +45,9 @@ for (i = 0; tiles.length < 16; i++) {
 
 /* Renders Board for movement */
 function renderBoard(gridId, blankPos) {
-    console.log({gridId});
-    console.log({blankPos});
-    
+    console.log({ gridId });
+    console.log({ blankPos });
+
 }
 
 /* Changes x and y position in Object */
@@ -57,32 +57,40 @@ function movement(e) {
     let blankCurrentPos = null;
     let blankVerify = null;
     let clickedId = this.id;
-
+    clickedId = Number(clickedId);
     //console.log({e});
-    console.log({clickedId});
+    console.log( clickedId-4 );
+    console.log();
+    if (
+        tiles[clickedId - 1].isBlank == 1 ||
+        tiles[clickedId + 1].isBlank == 1 ||
+        tiles[clickedId - 4].isBlank == 1 ||
+        tiles[clickedId + 4].isBlank == 1
+    ) {
+        xTemp = tiles[clickedId].x;
+        yTemp = tiles[clickedId].y;
+        console.log({ xTemp, yTemp });
+        for (let j = 0; j < tiles.length; j++) {
+            if (tiles[j].isBlank == 1) {
+                blankCurrentPos = tiles[j].tileId;
+                blankVerify = tiles[j].isBlank;
 
-    xTemp = tiles[clickedId].x;
-    yTemp = tiles[clickedId].y;
-    console.log({xTemp, yTemp});
-    for (let j = 0; j<tiles.length; j++) {
-        if(tiles[j].isBlank == 1) {
-            blankCurrentPos = tiles[j].tileId;
-            blankVerify = tiles[j].isBlank;
-
+            }
         }
+        // Swapping tile postiion between clicked and blank
+        tiles[clickedId].x = tiles[blankCurrentPos].x;
+        tiles[clickedId].y = tiles[blankCurrentPos].y;
+        tiles[clickedId].isBlank = 1;
+        tiles[blankCurrentPos].x = xTemp;
+        tiles[blankCurrentPos].y = yTemp;
+        tiles[blankCurrentPos].isBlank = 0;
+
+
+        // y * 4 + x
+        let tileOne = document.getElementById(clickedId);
+        let tileTwo = document.getElementById(blankCurrentPos);
+        tileOne.innerHTML = tiles[tileOne.id].y * 4 + tiles[tileOne.id].x;
+        tileTwo.innerHTML = tiles[tileTwo.id].y * 4 + tiles[tileTwo.id].x;
+
     }
-    // Swapping tile postiion between clicked and blank
-    tiles[clickedId].x = tiles[blankCurrentPos].x;
-    tiles[clickedId].y = tiles[blankCurrentPos].y;
-    tiles[clickedId].isBlank = 1;
-    tiles[blankCurrentPos].x = xTemp;
-    tiles[blankCurrentPos].y = yTemp;
-    tiles[blankCurrentPos].isBlank = 0;
-
-
-    // y * 4 + x
-    let tileOne = document.getElementById(clickedId);
-    let tileTwo = document.getElementById(blankCurrentPos);
-    tileOne.innerHTML = tiles[tileOne.id].y * 4 + tiles[tileOne.id].x;
-    tileTwo.innerHTML = tiles[tileTwo.id].y * 4 + tiles[tileTwo.id].x;
 }
