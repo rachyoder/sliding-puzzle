@@ -8,7 +8,6 @@ function Tile(idx, tileId, x, y, isBlank, color) {
     let text = document.createElement("div");
     text.innerHTML = idx;
     this.content = text;
-    //this.color = color;
 }
 
 /* Fill columns with Tiles */
@@ -16,17 +15,11 @@ Tile.prototype.populate = function (col) {
     col.appendChild(this.content);
 }
 
-/* Add color to each Tile */
-Tile.prototype.fill = function (col) {
-    col.setAttribute("style", "background-color: " + this.color);
-}
-
 /* Create Tiles Array */
 let tiles = [];
 let xPos = 0;
 let yPos = 0;
 let blank = 1;
-// let color = "rgb(0,0,0)"
 
 for (i = 0; tiles.length < 16; i++) {
     let tile = new Tile(
@@ -35,7 +28,6 @@ for (i = 0; tiles.length < 16; i++) {
         xPos,
         yPos,
         blank,
-        //color
     );
 
     if (xPos < 3) {
@@ -46,7 +38,6 @@ for (i = 0; tiles.length < 16; i++) {
     }
     if (blank == 1) {
         blank--;
-        // color = "rgb(255,255,255)";
     }
     tiles.push(tile);
 }
@@ -80,7 +71,7 @@ function movement() {
             changeTileMovement(clickedId);
         }
     }
-    checkWin();
+    return checkWin();
 }
 
 /* Changes Tile Position */
@@ -111,14 +102,16 @@ function checkWin() {
     let winCount = 0;
     let winDisplay = document.getElementById("win");
     for (let k = 0; k < tiles.length; k++) {
-        if(tiles[k].idx == tiles[k].y * 4 + tiles[k].x) {
-            winCount ++;
+        if (tiles[k].idx == tiles[k].y * 4 + tiles[k].x) {
+            winCount++;
         }
     }
-    if (winCount == 16){
+    if (winCount == 16) {
         winDisplay.innerHTML = "You Win!";
+        return true;
     } else {
         winDisplay.innerHTML = "Click the tiles to solve the puzzle";
+        return false;
     }
 }
 
@@ -132,7 +125,7 @@ function randomInt() {
 function randomizeBoard() {
     let r = 0;
     do {
-        document.getElementById(randomInt()).click();
+        let randomTile = document.getElementById(randomInt()).click();
         r++;
-    } while(r < 1000);
+    } while (r < 500);
 }
