@@ -1,4 +1,4 @@
-let imgSrc =  "img/stars.jpg";
+let imgSrc =  "img/lizard.gif";
 
 /* Tile Constructor */
 function Tile(idx, tileId, x, y, isBlank) {
