@@ -1,13 +1,30 @@
+let imgSrc =  "img/raptor.jpg";
+
 /* Tile Constructor */
-function Tile(idx, tileId, x, y, isBlank, color) {
+function Tile(idx, tileId, x, y, isBlank) {
     this.idx = idx;
     this.tileId = tileId;
     this.x = x;
     this.y = y;
     this.isBlank = isBlank;
-    let text = document.createElement("div");
-    text.innerHTML = idx;
-    this.content = text;
+    this.render = function (){
+        var element = document.getElementById(this.tileId);
+        element.innerHTML = "";
+        let img = document.createElement("img");
+        img.src = imgSrc;
+        // apply attributes to the img element
+        if(this.isBlank){
+            img.setAttribute('style', 'opacity:0');
+        } else {
+            var marginLeft = (this.tileId % 4) * -250;
+            var marginTop = parseInt(this.tileId / 4) * -250;
+            img.setAttribute('style', 'margin-left:' + marginLeft + 'px; margin-top:' + marginTop + 'px;');
+        }
+//         img.setAttribute('width', '600px');
+//         img.setAttribute('height', '600px');
+        element.appendChild(img);
+    }
+    
 }
 
 /* Fill columns with Tiles */
@@ -21,25 +38,28 @@ let xPos = 0;
 let yPos = 0;
 let blank = 1;
 
-for (i = 0; tiles.length < 16; i++) {
-    let tile = new Tile(
-        i,
-        i,
-        xPos,
-        yPos,
-        blank,
-    );
+function setState(){
+    for (i = 0; tiles.length < 16; i++) {
+        let tile = new Tile(
+            i,
+            i,
+            xPos,
+            yPos,
+            blank,
+        );
 
-    if (xPos < 3) {
-        xPos++;
-    } else if (xPos == 3) {
-        xPos = 0;
-        yPos++;
+        if (xPos < 3) {
+            xPos++;
+        } else if (xPos == 3) {
+            xPos = 0;
+            yPos++;
+        }
+        if (blank == 1) {
+            blank--;
+        }
+        tile.render();
+        tiles.push(tile);
     }
-    if (blank == 1) {
-        blank--;
-    }
-    tiles.push(tile);
 }
 
 /* Checks for Valid Tile Change */
@@ -96,6 +116,9 @@ function changeTileMovement(id) {
     let tileTwo = document.getElementById(blankId);
     tileOne.innerHTML = tiles[tileOne.id].y * 4 + tiles[tileOne.id].x;
     tileTwo.innerHTML = tiles[tileTwo.id].y * 4 + tiles[tileTwo.id].x;
+
+    tiles[tileOne.id].render();
+    tiles[tileTwo.id].render();
 }
 
 function checkWin() {
@@ -128,4 +151,13 @@ function randomizeBoard() {
         let randomTile = document.getElementById(randomInt()).click();
         r++;
     } while (r < 500);
+}
+
+/* Image Parsing */
+function imageUpload(event) {
+    console.log(event);
+    //let imgName = event.target.files[0].name;
+    let imgURL = window.URL.createObjectURL(event.target.files[0]);
+    console.log({imgURL});
+    imgSrc = imgURL;
 }

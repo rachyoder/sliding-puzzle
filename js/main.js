@@ -2,8 +2,9 @@ let app = document.getElementById("app");
 
 // Board Setup
 function init() {
+    app.innerHTML = "";
     app.setAttribute("class", "container");
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 4; i++) {
         let row = document.createElement("div");
         let col = document.createElement("col");
         row.setAttribute("class", "row m-3");
@@ -29,38 +30,53 @@ function init() {
                 let tileSpace = document.createElement("div");
                 tileSpace.setAttribute("class", "col-3 p-0 border text-center");
                 tileSpace.setAttribute("id", j);
-                tiles[j].populate(tileSpace);
+                tileSpace.setAttribute("style", "height:250px; width:250px; overflow:hidden; background-color:grey;");
                 tileSpace.addEventListener("click", movement);
                 row.appendChild(tileSpace);
             }
 
         } else if (i === 2) {
-            let col1 = document.createElement("div");
-            let col2 = document.createElement("div");
-            let randomBtn = document.createElement("button");
+            let col = document.createElement("div");
             let uploadBtn = document.createElement("INPUT");
-            let uploadIco = document.createElement("i");
+            // let uploadIco = document.createElement("i");
+            col.setAttribute("class", "col-12 p-0");
 
-            randomBtn.setAttribute("class", "btn btn-primary");
-            randomBtn.setAttribute("id", "random");
-            randomBtn.innerHTML = "RANDOMIZE";
-            randomBtn.addEventListener("click", randomizeBoard);
-
-            uploadBtn.setAttribute("class", "btn btn-primary rounded-pill");
+            uploadBtn.setAttribute("class", "btn btn-primary text-center");
             uploadBtn.setAttribute("type", "file");
             uploadBtn.setAttribute("id", "upload");
-            uploadIco.setAttribute("class", "fas fa-upload");
+            uploadBtn.addEventListener("change", imageUpload);
 
-            col1.setAttribute("class", "col-6");
-            col2.setAttribute("class", "col-6");
-            uploadBtn.appendChild(uploadIco);
-            col1.appendChild(uploadBtn);
+            
+            // uploadIco.setAttribute("class", "fas fa-upload");
+            // uploadBtn.appendChild(uploadIco);
+            col.appendChild(uploadBtn);
+            row.appendChild(col);
+
+        } else if (i === 3) {
+
+            // let col1 = document.createElement("div");
+            let col2 = document.createElement("div");
+            let randomBtn = document.createElement("button");
+            // let submitBtn = document.createElement("button");
+
+            randomBtn.setAttribute("class", "btn btn-primary float-right");
+            randomBtn.setAttribute("id", "random");
+            randomBtn.innerHTML = "SHUFFLE";
+            randomBtn.addEventListener("click", randomizeBoard);
+
+            // submitBtn.setAttribute("class", "btn btn-primary float-left");
+            // submitBtn.setAttribute("id", "loadPhoto")
+            // submitBtn.innerHTML = "SUBMIT";
+            // submitBtn.addEventListener("click", parseImage);
+
+            //col1.setAttribute("class", "col-6");
+            col2.setAttribute("class", "col-12");
+            // col1.appendChild(submitBtn);
             col2.appendChild(randomBtn);
-            row.appendChild(col1);
+            // row.appendChild(col1);
             row.appendChild(col2);
         }
         app.appendChild(row);
     }
+    setState();
 }
-
-init();
