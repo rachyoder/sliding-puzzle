@@ -3,6 +3,11 @@ let app = document.getElementById("app");
 // Board Setup
 function init() {
     app.innerHTML = "";
+    tiles = [];
+    xPos = 0;
+    yPos = 0;
+    blank = 1;
+    
     app.setAttribute("class", "container");
     for (i = 0; i < 4; i++) {
         let row = document.createElement("div");
@@ -46,7 +51,7 @@ function init() {
             uploadBtn.setAttribute("id", "upload");
             uploadBtn.addEventListener("change", imageUpload);
 
-            
+
             // uploadIco.setAttribute("class", "fas fa-upload");
             // uploadBtn.appendChild(uploadIco);
             col.appendChild(uploadBtn);
