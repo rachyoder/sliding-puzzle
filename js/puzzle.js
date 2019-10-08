@@ -1,4 +1,4 @@
-let imgSrc =  "img/raptor.jpg";
+let imgSrc =  "img/stars.jpg";
 
 /* Tile Constructor */
 function Tile(idx, tileId, x, y, isBlank) {
@@ -11,17 +11,18 @@ function Tile(idx, tileId, x, y, isBlank) {
         var element = document.getElementById(this.tileId);
         element.innerHTML = "";
         let img = document.createElement("img");
+        img.setAttribute('width', '1050px');
+        img.setAttribute('height', '1000px');
         img.src = imgSrc;
+        console.log(img.src);
         // apply attributes to the img element
         if(this.isBlank){
             img.setAttribute('style', 'opacity:0');
         } else {
-            var marginLeft = (this.tileId % 4) * -250;
-            var marginTop = parseInt(this.tileId / 4) * -250;
+            var marginLeft = ((this.y * 4 + this.x) % 4) * -250;
+            var marginTop = parseInt((this.y * 4 + this.x) / 4) * -250;
             img.setAttribute('style', 'margin-left:' + marginLeft + 'px; margin-top:' + marginTop + 'px;');
         }
-//         img.setAttribute('width', '600px');
-//         img.setAttribute('height', '600px');
         element.appendChild(img);
     }
     
@@ -39,7 +40,7 @@ let yPos = 0;
 let blank = 1;
 
 function setState(){
-    for (i = 0; tiles.length < 16; i++) {
+    for (let i = 0; tiles.length < 16; i++) {
         let tile = new Tile(
             i,
             i,
@@ -160,4 +161,5 @@ function imageUpload(event) {
     let imgURL = window.URL.createObjectURL(event.target.files[0]);
     console.log({imgURL});
     imgSrc = imgURL;
+    init();
 }
