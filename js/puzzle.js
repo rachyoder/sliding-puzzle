@@ -1,5 +1,5 @@
 /* Tile Constructor */
-function Tile(idx, tileId, x, y, isBlank, color) {
+function Tile(idx, tileId, x, y, isBlank) {
     this.idx = idx;
     this.tileId = tileId;
     this.x = x;
@@ -128,4 +128,10 @@ function randomizeBoard() {
         let randomTile = document.getElementById(randomInt()).click();
         r++;
     } while (r < 500);
+}
+
+/* Image Parsing */
+function parseImage() {
+    let imgSrc = "img/raptor.jpg";
+    
 }
